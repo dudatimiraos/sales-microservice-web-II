@@ -1,29 +1,25 @@
 package br.ufop.csi607.sales_microservice.model;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
-@Table(name = "sales")
-@Data
-public class Sale {
+import java.time.LocalDateTime;
+import java.util.UUID;
 
+@Entity
+@Table(name = "consumer")
+@Data
+public class Consumer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "consumer_id")
-    private Consumer consumer;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @Column(unique = true)
+    private String cpf;
 
-    private LocalDateTime saleDate;
-    private Integer saleStatus;
+    private Character gender;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -33,7 +29,6 @@ public class Sale {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
-        saleDate = LocalDateTime.now();
     }
 
     @PreUpdate
